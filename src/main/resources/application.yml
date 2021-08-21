@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 5
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    database-platform: com.example.jsonb.config.CustomPostgreSqlDialect
+    properties:
+      hibernate.temp.use_jdbc_metadata_defaults: false
+logging:
+  level:
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
