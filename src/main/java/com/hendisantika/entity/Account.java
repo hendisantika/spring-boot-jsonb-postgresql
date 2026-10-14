@@ -1,16 +1,15 @@
 package com.hendisantika.entity;
 
-import com.hendisantika.config.JsonbType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.util.Map;
 
 /**
@@ -25,14 +24,13 @@ import java.util.Map;
 @Entity
 @Data
 @Accessors(chain = true)
-@TypeDef(name = "JsonbType", typeClass = JsonbType.class)
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(columnDefinition = "jsonb")
-    @Type(type = "JsonbType")
+    @JdbcTypeCode(SqlTypes.JSON)
     private Map<String, Object> info;
 }
 

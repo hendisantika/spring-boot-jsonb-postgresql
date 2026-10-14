@@ -1,20 +1,19 @@
 package com.hendisantika.entity;
 
-import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
 
-import static javax.persistence.GenerationType.SEQUENCE;
+import static jakarta.persistence.GenerationType.SEQUENCE;
 
 /**
  * Created by IntelliJ IDEA.
@@ -29,7 +28,6 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @NoArgsConstructor
 @Entity
 @Table(name = "parents")
-@TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 public class Parent implements Serializable {
 
     @Id
@@ -39,15 +37,15 @@ public class Parent implements Serializable {
     @Column(length = 32, nullable = false)
     private String name;
 
-    @Type(type = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
     private List<Child> children;
 
-    @Type(type = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
     private Bio bio;
 
-    public Parent(String name, List children, Bio bio) {
+    public Parent(String name, List<Child> children, Bio bio) {
         this.name = name;
         this.children = children;
         this.bio = bio;
