@@ -10,6 +10,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : spring-boot-jsonb-postgresql
@@ -39,6 +41,10 @@ public class AccountRepositoryTest {
     @Test
     public void findByName() {
         List<Account> accounts = accountRepository.findByName("Uzumaki Naruto");
-        System.out.println(accounts);
+        assertThat(accounts).isNotEmpty();
+        assertThat(accounts.getFirst().getInfo())
+                .containsEntry("name", "Uzumaki Naruto")
+                .containsEntry("tel", "110")
+                .containsKey("Hobby");
     }
 }
